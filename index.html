@@ -56,58 +56,50 @@
                             <i class="fas fa-copy"></i>
                             Copy
                         </button>
+                        <button id="exportBtn" class="control-btn">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                        <button id="printBtn" class="control-btn">
+                            <i class="fas fa-print"></i>
+                            Print
+                        </button>
                     </div>
                 </div>
                 
                 <div class="text-areas">
                     <div class="input-group">
-                        <label for="inputText">Type in English (اكتب بالإنجليزية)</label>
+                        <label for="inputText">Arabic Text Area (منطقة النص العربي)</label>
+                        
+                        <!-- Large Input Textarea -->
                         <textarea 
                             id="inputText" 
-                            class="arabic-editor" 
-                            placeholder="Type 'ahlan wa sahlan' or 'marhaba' to see the magic..."
-                            rows="6"
-                        ></textarea>
-                        <div class="char-count">
-                            <span id="charCount">0</span> characters
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="outputText">Arabic Output (النتيجة بالعربية)</label>
-                        <textarea 
-                            id="outputText" 
-                            class="output-area" 
-                            placeholder="Arabic text will appear here..."
-                            rows="6"
-                            readonly
-                        ></textarea>
-                    </div>
-                </div>
-            </div>
+                            class="arabic-editor large-textarea" 
+                            dir="rtl"
+                            placeholder="Start typing in English and it will convert to Arabic automatically...
 
-            <div class="examples-section">
-                <h3>Examples - أمثلة</h3>
-                <div class="examples-grid">
-                    <div class="example-card" data-text="ahlan wa sahlan">
-                        <div class="example-input">ahlan wa sahlan</div>
-                        <div class="example-arrow">→</div>
-                        <div class="example-output">أهلاً وسهلاً</div>
-                    </div>
-                    <div class="example-card" data-text="marhaba">
-                        <div class="example-input">marhaba</div>
-                        <div class="example-arrow">→</div>
-                        <div class="example-output">مرحباً</div>
-                    </div>
-                    <div class="example-card" data-text="kayf halak">
-                        <div class="example-input">kayf halak</div>
-                        <div class="example-arrow">→</div>
-                        <div class="example-output">كيف حالك</div>
-                    </div>
-                    <div class="example-card" data-text="shukran">
-                        <div class="example-input">shukran</div>
-                        <div class="example-arrow">→</div>
-                        <div class="example-output">شكراً</div>
+جرب الكتابة بالإنجليزية وسترى التحويل التلقائي للعربية
+
+Type 'ahlan wa sahlan' → أهلاً وسهلاً
+Type 'marhaba' → مرحباً  
+Type 'kayf halak' → كيف حالك
+Type 'shukran' → شكراً"
+                            rows="20"></textarea>
+                        
+                        <div class="editor-stats">
+                            <span class="stat">
+                                <i class="fas fa-font"></i>
+                                <span id="charCount">0</span> characters
+                            </span>
+                            <span class="stat">
+                                <i class="fas fa-paragraph"></i>
+                                <span id="wordCount">0</span> words
+                            </span>
+                            <span class="stat">
+                                <i class="fas fa-file-alt"></i>
+                                <span id="lineCount">0</span> lines
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,15 +117,15 @@
                     <div class="instruction">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h4>Watch the magic happen</h4>
-                            <p>شاهد السحر يحدث</p>
+                            <h4>Watch automatic conversion</h4>
+                            <p>شاهد التحويل التلقائي</p>
                         </div>
                     </div>
                     <div class="instruction">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <h4>Copy and use anywhere</h4>
-                            <p>انسخ واستخدم في أي مكان</p>
+                            <h4>Copy and use your text</h4>
+                            <p>انسخ واستخدم النص</p>
                         </div>
                     </div>
                 </div>
@@ -142,7 +134,7 @@
 
         <footer class="footer">
             <div class="footer-content">
-                <p>&copy; 2024 Yamli Arabic Keyboard. Powered by Yamli API.</p>
+                <p>&copy; 2024 Yamli Arabic Keyboard. Powered by Yamli API & Pure JavaScript.</p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
@@ -153,28 +145,23 @@
     </div>
 
     <!-- YAMLI CODE START -->
-    <script type="text/javascript" src="yamli_api.js"></script>
+    <script type="text/javascript" src="yamli_api_simple.js"></script>
     <script type="text/javascript">
       if (typeof(Yamli) == "object" && Yamli.init( { 
         uiLanguage: "ar", 
         startMode: "onOrUserDefault",
-        showTutorial: true,
-        showSettings: true
+        showToggleButton: true,
+        showSettingsButton: true
       }))
       {
-        // Enable Yamli on the main input textarea
-        Yamli.yamlify( "inputText", { 
-          settingsPlacement: "bottomLeft",
+        // Initialize Yamli on the textarea
+        Yamli.yamlify('inputText', { 
+          settingsPlacement: 'bottomLeft',
           showToggleButton: true,
-          showSettingsButton: true
+          showSettingsButton: true,
+          startMode: 'onOrUserDefault'
         });
-        
-        // Also enable on any textarea with arabic-editor class
-        Yamli.yamlify( ".arabic-editor", { 
-          settingsPlacement: "bottomLeft",
-          showToggleButton: true,
-          showSettingsButton: true
-        });
+        console.log("Yamli Simple API loaded and initialized successfully");
       }
     </script>
     <!-- YAMLI CODE END -->

@@ -181,7 +181,7 @@ body {
 .editor-section {
     background: var(--bg-secondary);
     border-radius: var(--radius-xl);
-    padding: 2rem;
+    padding: 2.5rem;
     margin-bottom: 3rem;
     border: 1px solid var(--border-light);
     box-shadow: var(--shadow-md);
@@ -228,9 +228,8 @@ body {
 }
 
 .text-areas {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    display: block;
+    width: 100%;
 }
 
 .input-group {
@@ -245,115 +244,83 @@ body {
     font-size: 1rem;
 }
 
-.arabic-editor,
-.output-area {
+.arabic-editor {
     width: 100%;
-    padding: 1rem;
+    padding: 1.5rem;
     border: 2px solid var(--border-color);
     border-radius: var(--radius-lg);
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.8;
     resize: vertical;
     transition: all 0.3s ease;
     background: var(--bg-primary);
-    font-family: inherit;
+    font-family: 'Noto Sans Arabic', sans-serif;
+    direction: rtl;
+    text-align: right;
+    min-height: 300px;
 }
 
-.arabic-editor:focus,
-.output-area:focus {
+.arabic-editor.large-textarea {
+    min-height: 500px;
+    max-height: 800px;
+    font-size: 1.2rem;
+    line-height: 2;
+    padding: 2rem;
+    border-width: 3px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.arabic-editor.large-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15), 0 8px 30px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.arabic-editor:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.output-area {
-    background: var(--bg-tertiary);
-    color: var(--text-secondary);
-}
-
-.char-count {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
+.arabic-editor::placeholder {
     color: var(--text-light);
-    text-align: right;
+    font-style: italic;
 }
 
-/* Examples section */
-.examples-section {
-    margin-bottom: 3rem;
+/* Editor Stats Styling */
+.editor-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e5e7eb;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+    margin-top: 1rem;
 }
 
-.examples-section h3 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: var(--text-primary);
-}
-
-.examples-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.example-card {
-    background: var(--bg-primary);
-    border: 2px solid var(--border-light);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
+.editor-stats .stat {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
-.example-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
-    transition: left 0.5s ease;
+.editor-stats .stat:hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
 }
 
-.example-card:hover::before {
-    left: 100%;
-}
-
-.example-card:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-.example-input {
-    font-family: 'Courier New', monospace;
-    background: var(--bg-tertiary);
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    flex: 1;
-}
-
-.example-arrow {
-    font-size: 1.25rem;
-    color: var(--primary-color);
-    font-weight: bold;
-}
-
-.example-output {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    flex: 1;
-    text-align: right;
+.editor-stats .stat i {
+    font-size: 12px;
+    opacity: 0.7;
 }
 
 /* Instructions section */
@@ -480,11 +447,6 @@ body {
         font-size: 2rem;
     }
 
-    .text-areas {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
     .editor-header {
         flex-direction: column;
         align-items: flex-start;
@@ -498,21 +460,15 @@ body {
         padding: 1.5rem;
     }
 
+    .arabic-editor.large-textarea {
+        min-height: 400px;
+        font-size: 1.1rem;
+        padding: 1.5rem;
+        line-height: 1.8;
+    }
+
     .features {
         grid-template-columns: 1fr;
-    }
-
-    .examples-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .example-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .example-arrow {
-        transform: rotate(90deg);
     }
 
     .instructions {
@@ -522,6 +478,27 @@ body {
     .footer-content {
         flex-direction: column;
         text-align: center;
+    }
+
+    .editor-stats {
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+
+    .editor-stats .stat {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .editor-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .control-btn {
+        padding: 8px 12px;
+        font-size: 13px;
     }
 }
 
